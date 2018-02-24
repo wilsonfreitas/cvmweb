@@ -112,7 +112,8 @@ class CVMWebService(CVMWeb):
     def _get_cadastro(self, refdate=None):
         refdate = refdate if refdate else date.today().isoformat()
         url = self.get_url('solicAutorizDownloadCadastro', strDtRefer=refdate)
-        return download_unzip(url)
+        content = download_unzip(url)
+        return content.decode("utf-8")
 
     def _get_arq(self, refdate=None, type='daily', doctype=209):
         if type == 'annual':
@@ -128,6 +129,7 @@ class CVMWebService(CVMWeb):
                 url = self.get_url('solicAutorizDownloadArqEntrega', iCdTpDoc=doctype)
         else:
             ValueError('Invalid type {}'.format(type))
-        return download_unzip(url)
+        content = download_unzip(url)
+        return content.decode("utf-8")
 
 
